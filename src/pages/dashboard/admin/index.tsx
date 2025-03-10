@@ -29,7 +29,7 @@ export default function AdminHome({ user, logout }: AdminHomeProps) {
   const router = useRouter();
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const currentDate = '2025-03-09 02:07:33';
-  const currentUser = 'YoussefHarrabi';
+  const currentUser = 'Feriel Dh';
 
   // Check if user is admin
   if (!user || user.role !== 'admin') {

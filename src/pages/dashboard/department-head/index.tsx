@@ -28,7 +28,7 @@ export default function DepartmentHeadHome({ user, logout }: DepartmentHeadHomeP
   const router = useRouter();
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const currentDateTime = '2025-03-09 02:24:17';
-  const currentUserLogin = 'YoussefHarrabi';
+  const currentUserLogin = 'Feriel Dh';
 
   // Check if user is department-head
   if (!user || user.role !== 'department-head') {

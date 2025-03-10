@@ -108,7 +108,7 @@ export default function AppointmentScheduler() {
       {
         id: 'APT-10045',
         patientId: 'P-10045',
-        patientName: 'Youssef Harrabi',
+        patientName: 'Feriel Dh',
         doctorId: 101,
         doctorName: 'Dr. Emily Johnson',
         department: 'Primary Care',
@@ -122,7 +122,7 @@ export default function AppointmentScheduler() {
       {
         id: 'APT-10032',
         patientId: 'P-10045',
-        patientName: 'Youssef Harrabi',
+        patientName: 'Feriel Dh',
         doctorId: 104,
         doctorName: 'Dr. Michael Rodriguez',
         department: 'Pulmonology',
@@ -136,7 +136,7 @@ export default function AppointmentScheduler() {
       {
         id: 'APT-9876',
         patientId: 'P-10045',
-        patientName: 'Youssef Harrabi',
+        patientName: 'Feriel Dh',
         doctorId: 102,
         doctorName: 'Dr. David Chen',
         department: 'Cardiology',
@@ -150,7 +150,7 @@ export default function AppointmentScheduler() {
       {
         id: 'APT-9012',
         patientId: 'P-10045',
-        patientName: 'Youssef Harrabi',
+        patientName: 'Feriel Dh',
         doctorId: 105,
         doctorName: 'Dr. Lisa Thompson',
         department: 'Dermatology',
@@ -247,7 +247,7 @@ export default function AppointmentScheduler() {
     const newAppointment: Appointment = {
       id: `APT-${Math.floor(10000 + Math.random() * 90000)}`, // Generate random ID
       patientId: 'P-10045', // Current user's ID
-      patientName: 'Youssef Harrabi',
+      patientName: 'Feriel Dh',
       doctorId: selectedDoctor.id,
       doctorName: selectedDoctor.name,
       department: selectedDoctor.department,

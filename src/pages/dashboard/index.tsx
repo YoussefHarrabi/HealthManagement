@@ -24,7 +24,7 @@ type DashboardProps = {
 export default function Dashboard({ user, logout }: DashboardProps) {
   const router = useRouter();
   const currentDate = '2025-03-09 02:07:33';
-  const currentUser = 'YoussefHarrabi';
+  const currentUser = 'Feriel Dh';
 
   useEffect(() => {
     if (!user) {

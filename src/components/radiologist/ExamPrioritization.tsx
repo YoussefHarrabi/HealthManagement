@@ -29,7 +29,7 @@ const ExamPrioritization: React.FC = () => {
   const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('desc');
   const [statusFilter, setStatusFilter] = useState<string>('Pending');
   const currentDate = new Date('2025-03-09T00:53:33Z');
-  const currentUser = 'YoussefHarrabi';
+  const currentUser = 'Feriel Dh';
 
   // Mock data
   const mockExams: ExamItem[] = [

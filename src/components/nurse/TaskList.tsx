@@ -30,7 +30,7 @@ export default function TaskList() {
   const [statusFilter, setStatusFilter] = useState<string>('active');
   const [priorityFilter, setPriorityFilter] = useState<string>('all');
   const currentDate = new Date('2025-03-08 18:11:05');
-  const currentUser = 'YoussefHarrabi';
+  const currentUser = 'Feriel Dh';
 
   // Mock data fetching
   useEffect(() => {

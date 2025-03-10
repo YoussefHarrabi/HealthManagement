@@ -228,10 +228,7 @@ export default function Login({ login, user }: LoginProps) {
           </div>
         </div>
     
-        <div className="mt-6 text-center text-xs text-gray-500">
-          System Last Updated: 2025-03-09 03:55:55 UTC | 
-          Developer: YoussefHarrabi
-        </div>
+       
       </div>
     </div>
   );

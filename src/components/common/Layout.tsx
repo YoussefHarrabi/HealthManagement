@@ -15,7 +15,7 @@ export default function Layout({ children, userRole = 'admin' }: LayoutProps) {
   return (
     <div className="h-screen flex flex-col">
       <Navbar user={{
-        name: 'YoussefHarrabi',
+        name: 'Feriel Dh',
         email: 'youssef.harrabi@example.com',
         imageUrl: '/images/profile.png',
       }} />

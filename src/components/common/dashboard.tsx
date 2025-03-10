@@ -11,11 +11,11 @@ interface StatCard {
   color: string;
 }
 
-interface dashboardProps {
+interface DashboardProps {
   userRole?: string;
 }
 
-export default function dashboard({ userRole = 'admin' }: dashboardProps) {
+export default function Dashboard({ userRole = 'admin' }: DashboardProps) {
   const router = useRouter();
   const currentDate = new Date('2025-03-08 15:23:41').toLocaleDateString('en-US', {
     weekday: 'long',
@@ -243,7 +243,7 @@ export default function dashboard({ userRole = 'admin' }: dashboardProps) {
   return (
     <div>
       <div className="mb-6">
-        <h2 className="text-2xl font-semibold text-gray-900">Welcome, YoussefHarrabi</h2>
+        <h2 className="text-2xl font-semibold text-gray-900">Welcome, Feriel Dh</h2>
         <p className="text-sm text-gray-500">{currentDate}</p>
       </div>
       
@@ -296,7 +296,7 @@ export default function dashboard({ userRole = 'admin' }: dashboardProps) {
         <Card title="Quick Actions">
           <div className="grid grid-cols-2 gap-4">
             <button
-              onClick={() => router.push(`/dashboard/${userRole}/appointments`)}
+              onClick={() => router.push(`/Dashboard/${userRole}/appointments`)}
               className="bg-white hover:bg-gray-50 border border-gray-300 rounded-md shadow-sm px-4 py-4 text-center"
             >
               <CalendarIcon className="mx-auto h-7 w-7 text-primary-500" />
@@ -306,7 +306,7 @@ export default function dashboard({ userRole = 'admin' }: dashboardProps) {
             </button>
             
             <button
-              onClick={() => router.push(`/dashboard/${userRole}/messages`)}
+              onClick={() => router.push(`/Dashboard/${userRole}/messages`)}
               className="bg-white hover:bg-gray-50 border border-gray-300 rounded-md shadow-sm px-4 py-4 text-center"
             >
               <svg xmlns="http://www.w3.org/2000/svg" className="mx-auto h-7 w-7 text-primary-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -318,7 +318,7 @@ export default function dashboard({ userRole = 'admin' }: dashboardProps) {
             </button>
             
             <button
-              onClick={() => router.push(`/dashboard/${userRole}/${userRole === 'patient' ? 'medical-history' : 'reports'}`)}
+              onClick={() => router.push(`/Dashboard/${userRole}/${userRole === 'patient' ? 'medical-history' : 'reports'}`)}
               className="bg-white hover:bg-gray-50 border border-gray-300 rounded-md shadow-sm px-4 py-4 text-center"
             >
               <ChartBarIcon className="mx-auto h-7 w-7 text-primary-500" />
@@ -328,7 +328,7 @@ export default function dashboard({ userRole = 'admin' }: dashboardProps) {
             </button>
             
             <button
-              onClick={() => router.push(`/dashboard/${userRole}/profile`)}
+              onClick={() => router.push(`/Dashboard/${userRole}/profile`)}
               className="bg-white hover:bg-gray-50 border border-gray-300 rounded-md shadow-sm px-4 py-4 text-center"
             >
               <UserIcon className="mx-auto h-7 w-7 text-primary-500" />

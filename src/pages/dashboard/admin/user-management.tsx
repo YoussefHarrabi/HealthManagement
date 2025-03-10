@@ -28,7 +28,7 @@ export default function UserManagementPage({ user, logout }: UserManagementPageP
   const router = useRouter();
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const currentDate = '2025-03-09 02:07:33';
-  const currentUser = 'YoussefHarrabi';
+  const currentUser = 'Feriel Dh';
 
   // Check if user is admin
   if (!user || user.role !== 'admin') {
@@ -199,7 +199,7 @@ export default function UserManagementPage({ user, logout }: UserManagementPageP
                 <h1 className="text-2xl font-semibold text-gray-900">User Management</h1>
                 <div className="text-sm text-gray-500">
                   <p>2025-03-09 02:09:10 UTC</p>
-                  <p>User: YoussefHarrabi</p>
+                  <p>User: Feriel Dh</p>
                 </div>
               </div>
               

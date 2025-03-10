@@ -26,7 +26,7 @@ export default function RadiologistReportsPage({ user, logout }: RadiologistRepo
   const router = useRouter();
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const currentDateTime = '2025-03-09 02:40:45';
-  const currentUserLogin = 'YoussefHarrabi';
+  const currentUserLogin = 'Feriel Dh';
 
   // Check if user is radiologist
   if (!user || user.role !== 'radiologist') {
@@ -194,7 +194,7 @@ export default function RadiologistReportsPage({ user, logout }: RadiologistRepo
                 <h1 className="text-2xl font-semibold text-gray-900">Radiological Reports</h1>
                 <div className="text-sm text-gray-500">
                   <p>2025-03-09 02:40:45 UTC</p>
-                  <p>User: YoussefHarrabi</p>
+                  <p>User: Feriel Dh</p>
                 </div>
               </div>
               

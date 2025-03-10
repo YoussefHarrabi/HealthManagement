@@ -26,7 +26,7 @@ export default function DepartmentReportsPage({ user, logout }: DepartmentReport
   const router = useRouter();
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const currentDateTime = '2025-03-09 02:25:55';
-  const currentUserLogin = 'YoussefHarrabi';
+  const currentUserLogin = 'Feriel Dh';
 
   // Check if user is department-head
   if (!user || user.role !== 'department-head') {
@@ -195,7 +195,7 @@ export default function DepartmentReportsPage({ user, logout }: DepartmentReport
                 <h1 className="text-2xl font-semibold text-gray-900">Department Reports</h1>
                 <div className="text-sm text-gray-500">
                   <p>2025-03-09 02:25:55 UTC</p>
-                  <p>User: YoussefHarrabi</p>
+                  <p>User: Feriel Dh</p>
                 </div>
               </div>
               

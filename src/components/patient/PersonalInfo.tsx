@@ -44,9 +44,9 @@ export default function PersonalInfo() {
     // In a real app, this would be an API call
     const mockPatient: PatientData = {
       id: 'P-10045',
-      firstName: 'Youssef',
-      lastName: 'Harrabi',
-      email: 'youssef.harrabi@example.com',
+      firstName: 'Feriel',
+      lastName: 'dh',
+      email: 'Feriel.dh@example.com',
       phone: '(555) 123-4567',
       dateOfBirth: '1993-05-12',
       gender: 'Male',
@@ -58,7 +58,7 @@ export default function PersonalInfo() {
         country: 'Tunisia'
       },
       emergencyContact: {
-        name: 'Amal Harrabi',
+        name: 'Amal dh',
         relationship: 'Spouse',
         phone: '(555) 987-6543'
       },

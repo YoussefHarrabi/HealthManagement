@@ -301,10 +301,7 @@ export default function Register({ login, user }: RegisterProps) {
           </div>
         </div>
         
-        <div className="mt-4 text-center text-xs text-gray-500">
-          System Last Updated: 2025-03-09 02:02:30 UTC | 
-          Developer: YoussefHarrabi
-        </div>
+        
       </div>
     </div>
   );

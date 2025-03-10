@@ -26,7 +26,7 @@ export default function DoctorsListPage({ user, logout }: DoctorsListPageProps) 
   const router = useRouter();
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const currentDateTime = '2025-03-09 02:24:17';
-  const currentUserLogin = 'YoussefHarrabi';
+  const currentUserLogin = 'Feriel Dh';
 
   // Check if user is department-head
   if (!user || user.role !== 'department-head') {
@@ -195,7 +195,7 @@ export default function DoctorsListPage({ user, logout }: DoctorsListPageProps) 
                 <h1 className="text-2xl font-semibold text-gray-900">Doctors Management</h1>
                 <div className="text-sm text-gray-500">
                   <p>2025-03-09 02:25:55 UTC</p>
-                  <p>User: YoussefHarrabi</p>
+                  <p>User: Feriel Dh</p>
                 </div>
               </div>
               

@@ -27,7 +27,7 @@ export default function PatientHome({ user, logout }: PatientHomeProps) {
   const router = useRouter();
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const currentDateTime = '2025-03-09 02:42:08';
-  const currentUserLogin = 'YoussefHarrabi';
+  const currentUserLogin = 'Feriel Dh';
 
   // Check if user is patient
   if (!user || user.role !== 'patient') {

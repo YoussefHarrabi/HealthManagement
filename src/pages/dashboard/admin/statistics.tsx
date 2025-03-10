@@ -197,7 +197,7 @@ export default function StatisticsPage({ user, logout }: StatisticsPageProps) {
                 <h1 className="text-2xl font-semibold text-gray-900">System Statistics</h1>
                 <div className="text-sm text-gray-500">
                   <p>2025-03-09 02:24:17 UTC</p>
-                  <p>User: YoussefHarrabi</p>
+                  <p>User: Feriel Dh</p>
                 </div>
               </div>
               

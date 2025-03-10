@@ -33,7 +33,7 @@ export default function PatientList() {
   const [statusFilter, setStatusFilter] = useState<string>('all');
   const [priorityFilter, setPriorityFilter] = useState<string>('all');
   const currentDate = new Date('2025-03-08 18:03:21');
-  const currentUser = 'Dr. YoussefHarrabi';
+  const currentUser = 'Dr. Feriel Dh';
 
   // Mock data fetching
   useEffect(() => {
@@ -48,7 +48,7 @@ export default function PatientList() {
         status: 'Admitted',
         priority: 'Normal',
         diagnosis: 'Pneumonia',
-        assignedDoctor: 'Dr. YoussefHarrabi',
+        assignedDoctor: 'Dr. Feriel Dh',
         vitalSigns: {
           bloodPressure: '120/80',
           heartRate: 75,
@@ -67,7 +67,7 @@ export default function PatientList() {
         priority: 'Normal',
         diagnosis: 'Migraine',
         lastVisit: '2025-02-15',
-        assignedDoctor: 'Dr. YoussefHarrabi'
+        assignedDoctor: 'Dr. Feriel Dh'
       },
       {
         id: 'P-10047',
@@ -78,7 +78,7 @@ export default function PatientList() {
         status: 'Admitted',
         priority: 'Urgent',
         diagnosis: 'Myocardial Infarction',
-        assignedDoctor: 'Dr. YoussefHarrabi',
+        assignedDoctor: 'Dr. Feriel Dh',
         vitalSigns: {
           bloodPressure: '145/90',
           heartRate: 85,
@@ -95,7 +95,7 @@ export default function PatientList() {
         status: 'Emergency',
         priority: 'Critical',
         diagnosis: 'Acute Appendicitis',
-        assignedDoctor: 'Dr. YoussefHarrabi',
+        assignedDoctor: 'Dr. Feriel Dh',
         vitalSigns: {
           bloodPressure: '130/85',
           heartRate: 102,
@@ -113,7 +113,7 @@ export default function PatientList() {
         status: 'Admitted',
         priority: 'Urgent',
         diagnosis: 'COPD Exacerbation',
-        assignedDoctor: 'Dr. YoussefHarrabi',
+        assignedDoctor: 'Dr. Feriel Dh',
         vitalSigns: {
           bloodPressure: '135/85',
           heartRate: 88,
@@ -132,7 +132,7 @@ export default function PatientList() {
         priority: 'Normal',
         diagnosis: 'Hypertension',
         lastVisit: '2025-01-22',
-        assignedDoctor: 'Dr. YoussefHarrabi'
+        assignedDoctor: 'Dr. Feriel Dh'
       },
       {
         id: 'P-10051',
@@ -143,7 +143,7 @@ export default function PatientList() {
         priority: 'Normal',
         diagnosis: 'Hip Replacement Recovery',
         lastVisit: '2025-03-01',
-        assignedDoctor: 'Dr. YoussefHarrabi'
+        assignedDoctor: 'Dr. Feriel Dh'
       }
     ];
     

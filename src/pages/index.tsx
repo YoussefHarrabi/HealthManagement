@@ -154,7 +154,7 @@ export default function Home({ user, logout }: HomeProps) {
             <div className="mt-8 md:mt-0">
               <p className="text-center text-gray-400">
                 Built by {" "}
-                <span className="text-white font-medium">YoussefHarrabi</span>
+                <span className="text-white font-medium">Feriel Dh</span>
               </p>
             </div>
           </div>

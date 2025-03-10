@@ -65,7 +65,7 @@ export default function TaskExecution() {
   const [vitalSigns, setVitalSigns] = useState<VitalSigns>({});
   const [isExecuting, setIsExecuting] = useState<boolean>(false);
   const currentDate = new Date('2025-03-08 18:13:01');
-  const currentUser = 'YoussefHarrabi';
+  const currentUser = 'Feriel Dh';
 
   // Mock data fetching
   useEffect(() => {

@@ -25,7 +25,7 @@ export default function NurseTasksPage({ user, logout }: NurseTasksPageProps) {
   const router = useRouter();
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const currentDateTime = '2025-03-09 03:43:15';
-  const currentUserLogin = 'YoussefHarrabi';
+  const currentUserLogin = 'Feriel Dh';
 
   // Check if user is nurse
   if (!user || user.role !== 'nurse') {
@@ -192,7 +192,7 @@ export default function NurseTasksPage({ user, logout }: NurseTasksPageProps) {
                 <h1 className="text-2xl font-semibold text-gray-900">Tasks Management</h1>
                 <div className="text-sm text-gray-500">
                   <p>2025-03-09 03:46:08 UTC</p>
-                  <p>User: YoussefHarrabi</p>
+                  <p>User: Feriel Dh</p>
                 </div>
               </div>
               

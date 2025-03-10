@@ -192,7 +192,7 @@ export default function PatientsPage({ user, logout }: PatientsPageProps) {
                 <h1 className="text-2xl font-semibold text-gray-900">Patient Management</h1>
                 <div className="text-sm text-gray-500">
                   <p>2025-03-09 03:40:29 UTC</p>
-                  <p>User: YoussefHarrabi</p>
+                  <p>User: Feriel Dh</p>
                 </div>
               </div>
               
