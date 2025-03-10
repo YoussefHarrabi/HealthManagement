@@ -1,26 +1,387 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
+@layer base {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --font-geist-sans: 'Geist', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+    --font-geist-mono: 'Geist Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  }
+
+  html {
+    font-family: var(--font-geist-sans);
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-gray-50;
+    @apply text-gray-900;
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    @apply w-2 h-2;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-gray-100;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-gray-300 rounded-full;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-gray-400;
+  }
+
+  /* Fix for button text colors */
+  button[type="submit"], 
+  input[type="submit"],
+  .btn-submit {
+    @apply text-white;
+    color: white !important;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer components {
+  /* Form Elements */
+  .input-field {
+    @apply block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm text-sm;
+    @apply focus:outline-none focus:border-blue-500;
+    @apply disabled:bg-gray-100 disabled:text-gray-500 disabled:cursor-not-allowed;
+  }
+
+  .input-label {
+    @apply block text-sm font-medium text-gray-700 mb-1;
+  }
+
+  .input-error {
+    @apply text-red-600 text-sm mt-1;
+  }
+
+  /* Card styles */
+  .card {
+    @apply bg-white rounded-lg border shadow-sm p-5 overflow-hidden;
+  }
+
+  .card-title {
+    @apply text-lg font-medium mb-4 pb-3 border-b;
+  }
+
+  /* Button base styles */
+  .btn-base {
+    @apply inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors;
+    @apply focus-visible:outline-none focus-visible:border-blue-500;
+    @apply disabled:opacity-50 disabled:pointer-events-none;
+  }
+
+  /* Button variants with improved contrast */
+  .btn-primary {
+    @apply bg-blue-600 text-white hover:bg-blue-700 inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:border-blue-500 disabled:opacity-50 disabled:pointer-events-none;
+    color: white !important;
+  }
+
+  .btn-secondary {
+    @apply bg-gray-200 text-gray-900 hover:bg-gray-300 inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:border-blue-500 disabled:opacity-50 disabled:pointer-events-none;
+    color: rgb(17, 24, 39) !important;
+  }
+
+  .btn-danger {
+    @apply bg-red-600 text-white hover:bg-red-700 inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:border-blue-500 disabled:opacity-50 disabled:pointer-events-none;
+    color: white !important;
+  }
+
+  .btn-white {
+    @apply bg-white text-gray-700 border border-gray-300 hover:bg-gray-50 inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:border-blue-500 disabled:opacity-50 disabled:pointer-events-none;
+    color: rgb(55, 65, 81) !important;
+  }
+
+  .btn-ghost {
+    @apply text-gray-600 hover:text-gray-900 hover:bg-gray-100 inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:border-blue-500 disabled:opacity-50 disabled:pointer-events-none;
+    color: rgb(75, 85, 99) !important;
+  }
+
+  /* Button sizes */
+  .btn-xs {
+    @apply px-2.5 py-1.5 text-xs;
+  }
+
+  .btn-sm {
+    @apply px-3 py-2 text-sm;
+  }
+
+  .btn-md {
+    @apply px-4 py-2 text-sm;
+  }
+
+  .btn-lg {
+    @apply px-5 py-2.5 text-base;
+  }
+
+  .btn-xl {
+    @apply px-6 py-3 text-base;
+  }
+
+  /* Form submit button specific styling */
+  button[type="submit"], 
+  input[type="submit"] {
+    @apply bg-blue-600 hover:bg-blue-700;
+  }
+
+  /* Table styles */
+  .table-container {
+    @apply overflow-x-auto rounded-md border shadow-sm;
+  }
+
+  .table {
+    @apply min-w-full divide-y divide-gray-200;
+  }
+
+  .table-header {
+    @apply bg-gray-50;
+  }
+
+  .table-header-cell {
+    @apply px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider;
+  }
+
+  .table-body {
+    @apply bg-white divide-y divide-gray-200;
+  }
+
+  .table-row {
+    @apply hover:bg-gray-50;
+  }
+
+  .table-cell {
+    @apply px-6 py-4 whitespace-nowrap text-sm text-gray-500;
+  }
+
+  /* Badge styles */
+  .badge {
+    @apply inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium;
+  }
+
+  .badge-primary {
+    @apply bg-blue-100 text-blue-800 inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium;
+  }
+
+  .badge-success {
+    @apply bg-green-100 text-green-800 inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium;
+  }
+
+  .badge-warning {
+    @apply bg-yellow-100 text-yellow-800 inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium;
+  }
+
+  .badge-danger {
+    @apply bg-red-100 text-red-800 inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium;
+  }
+
+  .badge-info {
+    @apply bg-blue-100 text-blue-800 inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium;
+  }
+
+  .badge-gray {
+    @apply bg-gray-100 text-gray-800 inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium;
+  }
+
+  /* Alert styles */
+  .alert {
+    @apply rounded-md p-4 mb-4;
+  }
+
+  .alert-success {
+    @apply bg-green-50 text-green-800 rounded-md p-4 mb-4;
+  }
+
+  .alert-warning {
+    @apply bg-yellow-50 text-yellow-800 rounded-md p-4 mb-4;
+  }
+
+  .alert-error {
+    @apply bg-red-50 text-red-800 rounded-md p-4 mb-4;
+  }
+
+  .alert-info {
+    @apply bg-blue-50 text-blue-800 rounded-md p-4 mb-4;
+  }
+
+  /* Loading indicators */
+  .loading-spinner {
+    @apply animate-spin h-5 w-5 text-blue-600;
+  }
+
+  .loading-dots {
+    @apply flex items-center justify-center space-x-1 h-5;
+  }
+
+  .loading-dot {
+    @apply h-2 w-2 bg-gray-600 rounded-full animate-pulse;
+  }
+
+  /* Modal styles */
+  .modal-overlay {
+    @apply fixed inset-0 bg-black flex items-center justify-center z-50 p-4;
+  }
+
+  .modal-container {
+    @apply bg-white rounded-lg shadow-xl max-w-lg w-full max-h-[90vh] overflow-hidden;
+  }
+
+  .modal-header {
+    @apply p-4 border-b flex items-center justify-between;
+  }
+
+  .modal-body {
+    @apply p-4 overflow-y-auto max-h-[70vh];
+  }
+
+  .modal-footer {
+    @apply p-4 border-t flex justify-end space-x-3;
+  }
+
+  /* Page layout */
+  .page-container {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  .page-header {
+    @apply py-6;
+  }
+
+  .page-title {
+    @apply text-2xl font-bold text-gray-900;
+  }
+
+  .page-subtitle {
+    @apply mt-1 text-sm text-gray-500;
+  }
+
+  /* Healthcare specific styles */
+  .vital-sign-card {
+    @apply bg-gray-50 p-3 rounded-md flex flex-col;
+  }
+
+  .vital-sign-label {
+    @apply text-xs text-gray-500;
+  }
+
+  .vital-sign-value {
+    @apply text-lg font-medium;
+  }
+
+  .vital-sign-unit {
+    @apply text-xs text-gray-500;
+  }
+
+  .vital-sign-normal {
+    @apply text-green-600;
+  }
+
+  .vital-sign-warning {
+    @apply text-yellow-600;
+  }
+
+  .vital-sign-critical {
+    @apply text-red-600;
+  }
+
+  .patient-status-admitted {
+    @apply bg-blue-100 text-blue-800;
+  }
+
+  .patient-status-outpatient {
+    @apply bg-green-100 text-green-800;
+  }
+
+  .patient-status-emergency {
+    @apply bg-red-100 text-red-800;
+  }
+
+  .patient-status-discharged {
+    @apply bg-gray-100 text-gray-800;
+  }
 }
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .text-pretty {
+    text-wrap: pretty;
+  }
+  
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
+  .text-shadow {
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  }
+
+  .text-shadow-none {
+    text-shadow: none;
+  }
+  
+  .animate-fade {
+    animation: fade 0.5s ease-in-out;
+  }
+  
+  @keyframes fade {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  
+  .animate-slide-up {
+    animation: slide-up 0.3s ease-out;
+  }
+  
+  @keyframes slide-up {
+    from {
+      transform: translateY(20px);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+
+  /* High contrast text utilities */
+  .text-high-contrast {
+    text-shadow: 0 0 1px rgba(0, 0, 0, 0.2);
+    @apply font-medium;
+  }
+}
+
+/* Print styles */
+@media print {
+  body {
+    @apply bg-white text-black;
+  }
+  
+  .no-print {
+    display: none !important;
+  }
+  
+  .card, .table-container {
+    @apply shadow-none border-0;
+  }
+  
+  .page-break {
+    page-break-before: always;
+  }
+}
+
+/* Updated date: 2025-03-08 23:40:03 */
+/* Current user: YoussefHarrabi */
