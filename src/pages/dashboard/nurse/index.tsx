@@ -26,7 +26,7 @@ export default function NurseHome({ user, logout }: NurseHomeProps) {
   const router = useRouter();
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const currentDateTime = '2025-03-09 03:43:15';
-  const currentUserLogin = 'Feriel Dh';
+  const currentUserLogin = 'Feriel Mariem';
 
   // Check if user is nurse
   if (!user || user.role !== 'nurse') {
@@ -192,8 +192,7 @@ export default function NurseHome({ user, logout }: NurseHomeProps) {
               <div className="pb-5 border-b border-gray-200 mb-5 flex justify-between items-center">
                 <h1 className="text-2xl font-semibold text-gray-900">Nurse Dashboard</h1>
                 <div className="text-sm text-gray-500">
-                  <p>2025-03-09 03:43:15 UTC</p>
-                  <p>User: Feriel Dh</p>
+            
                 </div>
               </div>
               

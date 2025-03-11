@@ -23,8 +23,7 @@ type DashboardProps = {
 
 export default function Dashboard({ user, logout }: DashboardProps) {
   const router = useRouter();
-  const currentDate = '2025-03-09 02:07:33';
-  const currentUser = 'Feriel Dh';
+
 
   useEffect(() => {
     if (!user) {
@@ -71,8 +70,7 @@ export default function Dashboard({ user, logout }: DashboardProps) {
           </p>
           <div className="loading-spinner mx-auto"></div>
           <div className="mt-8 text-gray-500 text-sm">
-            <p>Current Time: {currentDate} UTC</p>
-            <p>User: {currentUser}</p>
+      
             <p>Role: {user.role}</p>
           </div>
         </div>

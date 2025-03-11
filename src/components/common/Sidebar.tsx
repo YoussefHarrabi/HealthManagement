@@ -29,7 +29,7 @@ export default function Sidebar({ userRole = 'admin' }: SidebarProps) {
   const router = useRouter();
   const [collapsed, setCollapsed] = useState(false);
   const currentDate = new Date('2025-03-08 23:50:44');
-  const currentUser = 'Feriel Dh';
+  const currentUser = 'Feriel Mariem';
   
   // Base navigation items available to all users
   const baseNavigation: NavigationItem[] = [

@@ -15,8 +15,8 @@ export default function Layout({ children, userRole = 'admin' }: LayoutProps) {
   return (
     <div className="h-screen flex flex-col">
       <Navbar user={{
-        name: 'Feriel Dh',
-        email: 'youssef.harrabi@example.com',
+        name: 'Feriel Mariem',
+        email: 'ferielMariem@example.com',
         imageUrl: '/images/profile.png',
       }} />
       <div className="flex flex-1 overflow-hidden">

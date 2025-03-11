@@ -56,7 +56,7 @@ export default function TaskAssignment() {
   const [taskPriority, setTaskPriority] = useState<'Low' | 'Medium' | 'High'>('Medium');
   const [taskDueDate, setTaskDueDate] = useState<string>('');
   const currentDate = new Date('2025-03-08 18:05:41');
-  const currentUser = 'Dr. Feriel Dh';
+  const currentUser = 'Dr. Feriel Mariem';
 
   // Format current date as YYYY-MM-DD
   const formattedCurrentDate = currentDate.toISOString().split('T')[0];
@@ -164,7 +164,7 @@ export default function TaskAssignment() {
         priority: 'High',
         status: 'Assigned',
         description: 'Administer 500mg Ceftriaxone IV every 12 hours.',
-        createdBy: 'Dr. Feriel Dh',
+        createdBy: 'Dr. Feriel Mariem',
         createdAt: '2025-03-08T12:30:00'
       },
       {
@@ -178,7 +178,7 @@ export default function TaskAssignment() {
         priority: 'Medium',
         status: 'Assigned',
         description: 'Collect blood samples for CBC, electrolytes, and cardiac enzymes.',
-        createdBy: 'Dr. Feriel Dh',
+        createdBy: 'Dr. Feriel Mariem',
         createdAt: '2025-03-08T14:15:00'
       },
       {
@@ -192,7 +192,7 @@ export default function TaskAssignment() {
         priority: 'Medium',
         status: 'In Progress',
         description: 'Perform AP and lateral chest X-ray to assess COPD status.',
-        createdBy: 'Dr. Feriel Dh',
+        createdBy: 'Dr. Feriel Mariem',
         createdAt: '2025-03-08T15:00:00'
       },
       {
@@ -204,7 +204,7 @@ export default function TaskAssignment() {
         priority: 'High',
         dueDate: '2025-03-08T20:30:00',
         description: 'Conduct post-operative assessment following appendectomy.',
-        createdBy: 'Dr. Feriel Dh',
+        createdBy: 'Dr. Feriel Mariem',
         createdAt: '2025-03-08T17:45:00'
       }
     ];

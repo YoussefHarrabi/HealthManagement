@@ -16,8 +16,8 @@ interface NavbarProps {
 }
 
 export default function Navbar({ user = {
-  name: 'Feriel Dh',
-  email: 'youssef.harrabi@example.com',
+  name: 'Feriel Mariemh',
+  email: 'Feriel Mariem@example.com',
   imageUrl: '/images/profile.png',
 }}: NavbarProps) {
   const router = useRouter();

@@ -27,8 +27,7 @@ type DepartmentHeadHomeProps = {
 export default function DepartmentHeadHome({ user, logout }: DepartmentHeadHomeProps) {
   const router = useRouter();
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const currentDateTime = '2025-03-09 02:24:17';
-  const currentUserLogin = 'Feriel Dh';
+
 
   // Check if user is department-head
   if (!user || user.role !== 'department-head') {
@@ -195,10 +194,7 @@ export default function DepartmentHeadHome({ user, logout }: DepartmentHeadHomeP
             <div className="max-w-7xl mx-auto">
               <div className="pb-5 border-b border-gray-200 mb-5 flex justify-between items-center">
                 <h1 className="text-2xl font-semibold text-gray-900">Department Dashboard</h1>
-                <div className="text-sm text-gray-500">
-                  <p>{currentDateTime} UTC</p>
-                  <p>User: {currentUserLogin}</p>
-                </div>
+          
               </div>
               
               <SupervisionDashboard />

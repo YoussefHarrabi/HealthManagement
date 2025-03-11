@@ -59,7 +59,7 @@ export default function TestPrescription() {
   const [orderNotes, setOrderNotes] = useState<string>('');
   const [statusFilter, setStatusFilter] = useState<string>('all');
   const currentDate = new Date('2025-03-08 18:07:12');
-  const currentUser = 'Dr. Feriel Dh';
+  const currentUser = 'Dr. Feriel Mariem';
 
   // Mock data fetching
   useEffect(() => {
@@ -224,7 +224,7 @@ export default function TestPrescription() {
           testNames: ['Complete Blood Count (CBC)', 'Basic Metabolic Panel'],
           status: 'Completed',
           priority: 'Routine',
-          orderedBy: 'Dr. Feriel Dh',
+          orderedBy: 'Dr. Feriel Mariem',
           orderedAt: '2025-03-06T10:30:00',
           scheduledDate: '2025-03-07T09:00:00'
         },
@@ -236,7 +236,7 @@ export default function TestPrescription() {
           testNames: ['Electrocardiogram (ECG)', 'Echocardiogram'],
           status: 'Scheduled',
           priority: 'Urgent',
-          orderedBy: 'Dr. Feriel Dh',
+          orderedBy: 'Dr. Feriel Mariem',
           orderedAt: '2025-03-07T16:45:00',
           scheduledDate: '2025-03-09T11:30:00',
           notes: 'Patient has history of arrhythmia and shortness of breath.'
@@ -249,7 +249,7 @@ export default function TestPrescription() {
           testNames: ['Chest X-ray'],
           status: 'Pending',
           priority: 'STAT',
-          orderedBy: 'Dr. Feriel Dh',
+          orderedBy: 'Dr. Feriel Mariem',
           orderedAt: '2025-03-08T14:20:00',
           notes: 'COPD exacerbation assessment.'
         }

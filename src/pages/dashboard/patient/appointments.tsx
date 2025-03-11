@@ -27,7 +27,7 @@ export default function AppointmentsPage({ user, logout }: AppointmentsPageProps
   const router = useRouter();
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const currentDateTime = '2025-03-09 02:52:42';
-  const currentUserLogin = 'Feriel Dh';
+  const currentUserLogin = 'Feriel Mariem';
 
   // Check if user is patient
   if (!user || user.role !== 'patient') {
@@ -195,8 +195,7 @@ export default function AppointmentsPage({ user, logout }: AppointmentsPageProps
               <div className="pb-5 border-b border-gray-200 mb-5 flex justify-between items-center">
                 <h1 className="text-2xl font-semibold text-gray-900">Manage Appointments</h1>
                 <div className="text-sm text-gray-500">
-                  <p>2025-03-09 02:52:42 UTC</p>
-                  <p>User: Feriel Dh</p>
+              
                 </div>
               </div>
               

@@ -28,8 +28,7 @@ type AdminHomeProps = {
 export default function AdminHome({ user, logout }: AdminHomeProps) {
   const router = useRouter();
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const currentDate = '2025-03-09 02:07:33';
-  const currentUser = 'Feriel Dh';
+
 
   // Check if user is admin
   if (!user || user.role !== 'admin') {
@@ -199,8 +198,7 @@ export default function AdminHome({ user, logout }: AdminHomeProps) {
               <div className="pb-5 border-b border-gray-200 mb-5 flex justify-between items-center">
                 <h1 className="text-2xl font-semibold text-gray-900">Admin Dashboard</h1>
                 <div className="text-sm text-gray-500">
-                  <p>{currentDate} UTC</p>
-                  <p>User: {currentUser}</p>
+            
                 </div>
               </div>
               

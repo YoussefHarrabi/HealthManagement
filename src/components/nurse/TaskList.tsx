@@ -30,7 +30,7 @@ export default function TaskList() {
   const [statusFilter, setStatusFilter] = useState<string>('active');
   const [priorityFilter, setPriorityFilter] = useState<string>('all');
   const currentDate = new Date('2025-03-08 18:11:05');
-  const currentUser = 'Feriel Dh';
+  const currentUser = 'Feriel Mariem';
 
   // Mock data fetching
   useEffect(() => {
@@ -251,9 +251,7 @@ export default function TaskList() {
             <option value="Low">Low</option>
           </select>
         </div>
-        <div className="text-sm text-gray-500">
-          Current time: {currentDate.toLocaleString()}
-        </div>
+     
       </div>
       
       {isLoading ? (

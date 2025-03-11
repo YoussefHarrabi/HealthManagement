@@ -26,8 +26,7 @@ type PatientHomeProps = {
 export default function PatientHome({ user, logout }: PatientHomeProps) {
   const router = useRouter();
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const currentDateTime = '2025-03-09 02:42:08';
-  const currentUserLogin = 'Feriel Dh';
+
 
   // Check if user is patient
   if (!user || user.role !== 'patient') {
@@ -195,8 +194,7 @@ export default function PatientHome({ user, logout }: PatientHomeProps) {
               <div className="pb-5 border-b border-gray-200 mb-5 flex justify-between items-center">
                 <h1 className="text-2xl font-semibold text-gray-900">Patient Dashboard</h1>
                 <div className="text-sm text-gray-500">
-                  <p>{currentDateTime} UTC</p>
-                  <p>User: {currentUserLogin}</p>
+        
                 </div>
               </div>
               

@@ -45,8 +45,8 @@ export default function PersonalInfo() {
     const mockPatient: PatientData = {
       id: 'P-10045',
       firstName: 'Feriel',
-      lastName: 'dh',
-      email: 'Feriel.dh@example.com',
+      lastName: 'Mariem',
+      email: 'Feriel.Mariem@example.com',
       phone: '(555) 123-4567',
       dateOfBirth: '1993-05-12',
       gender: 'Male',
@@ -58,7 +58,7 @@ export default function PersonalInfo() {
         country: 'Tunisia'
       },
       emergencyContact: {
-        name: 'Amal dh',
+        name: 'Amal Mariem',
         relationship: 'Spouse',
         phone: '(555) 987-6543'
       },

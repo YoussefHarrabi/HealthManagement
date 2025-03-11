@@ -65,7 +65,7 @@ export default function TaskExecution() {
   const [vitalSigns, setVitalSigns] = useState<VitalSigns>({});
   const [isExecuting, setIsExecuting] = useState<boolean>(false);
   const currentDate = new Date('2025-03-08 18:13:01');
-  const currentUser = 'Feriel Dh';
+  const currentUser = 'Feriel Mariem';
 
   // Mock data fetching
   useEffect(() => {
@@ -772,9 +772,7 @@ export default function TaskExecution() {
         <div className="space-y-6">
           <div className="flex justify-between items-center">
             <h2 className="text-xl font-medium text-gray-900">Task Execution</h2>
-            <div className="text-sm text-gray-500">
-              Current time: {currentDate.toLocaleString()}
-            </div>
+        
           </div>
           
           {isLoading ? (

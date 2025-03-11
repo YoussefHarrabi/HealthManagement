@@ -193,8 +193,7 @@ export default function LabResultsPage({ user, logout }: LabResultsPageProps) {
               <div className="pb-5 border-b border-gray-200 mb-5 flex justify-between items-center">
                 <h1 className="text-2xl font-semibold text-gray-900">Lab Results</h1>
                 <div className="text-sm text-gray-500">
-                  <p>2025-03-09 03:38:53 UTC</p>
-                  <p>User: Feriel Dh</p>
+             
                 </div>
               </div>
               
