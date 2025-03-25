@@ -108,7 +108,7 @@ export default function AppointmentScheduler() {
       {
         id: 'APT-10045',
         patientId: 'P-10045',
-        patientName: 'Feriel Dh',
+        patientName: 'Feriel Mariem',
         doctorId: 101,
         doctorName: 'Dr. Emily Johnson',
         department: 'Primary Care',
@@ -122,7 +122,7 @@ export default function AppointmentScheduler() {
       {
         id: 'APT-10032',
         patientId: 'P-10045',
-        patientName: 'Feriel Dh',
+        patientName: 'Feriel Mariem',
         doctorId: 104,
         doctorName: 'Dr. Michael Rodriguez',
         department: 'Pulmonology',
@@ -136,7 +136,7 @@ export default function AppointmentScheduler() {
       {
         id: 'APT-9876',
         patientId: 'P-10045',
-        patientName: 'Feriel Dh',
+        patientName: 'Feriel Mariem',
         doctorId: 102,
         doctorName: 'Dr. David Chen',
         department: 'Cardiology',
@@ -150,7 +150,7 @@ export default function AppointmentScheduler() {
       {
         id: 'APT-9012',
         patientId: 'P-10045',
-        patientName: 'Feriel Dh',
+        patientName: 'Feriel Mariem',
         doctorId: 105,
         doctorName: 'Dr. Lisa Thompson',
         department: 'Dermatology',
@@ -192,10 +192,10 @@ export default function AppointmentScheduler() {
     // for the selected doctor on the selected date
     const times = [];
     const startHour = 8; // 8 AM
-    const endHour = 17;  // 5 PM
+    const enMariemour = 17;  // 5 PM
     const interval = 30; // 30-minute intervals
 
-    for (let hour = startHour; hour < endHour; hour++) {
+    for (let hour = startHour; hour < enMariemour; hour++) {
       for (let minute = 0; minute < 60; minute += interval) {
         const timeString = `${hour.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')}`;
         
@@ -247,7 +247,7 @@ export default function AppointmentScheduler() {
     const newAppointment: Appointment = {
       id: `APT-${Math.floor(10000 + Math.random() * 90000)}`, // Generate random ID
       patientId: 'P-10045', // Current user's ID
-      patientName: 'Feriel Dh',
+      patientName: 'Feriel Mariem',
       doctorId: selectedDoctor.id,
       doctorName: selectedDoctor.name,
       department: selectedDoctor.department,

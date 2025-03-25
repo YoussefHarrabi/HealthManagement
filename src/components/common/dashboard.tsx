@@ -2,6 +2,7 @@ import React, { JSX } from 'react';
 import Card from './Card';
 import { ChartBarIcon, CalendarIcon, UserIcon, ClipboardIcon } from '@heroicons/react/outline';
 import { useRouter } from 'next/router';
+import { User } from '../../services/auth';
 
 interface StatCard {
   title: string;
@@ -12,17 +13,19 @@ interface StatCard {
 }
 
 interface DashboardProps {
-  userRole?: string;
+  user: User | null;
 }
 
-export default function Dashboard({ userRole = 'admin' }: DashboardProps) {
+export default function Dashboard({ user }: DashboardProps) {
   const router = useRouter();
-  const currentDate = new Date('2025-03-08 15:23:41').toLocaleDateString('en-US', {
+  const currentDate = new Date('2025-03-24 00:26:49').toLocaleDateString('en-US', {
     weekday: 'long',
     year: 'numeric',
     month: 'long',
     day: 'numeric'
   });
+
+  const userRole = user?.role || 'admin';
 
   // Different stats based on user role
   const roleStats: Record<string, StatCard[]> = {
@@ -175,6 +178,36 @@ export default function Dashboard({ userRole = 'admin' }: DashboardProps) {
         icon: CalendarIcon,
         color: 'bg-purple-500'
       }
+    ],
+    department_head: [
+      {
+        title: 'Department Staff',
+        value: 18,
+        description: '2 new this month',
+        icon: UserIcon,
+        color: 'bg-blue-500'
+      },
+      {
+        title: 'Performance Metrics',
+        value: '93%',
+        description: '+1.2% from last month',
+        icon: ChartBarIcon,
+        color: 'bg-green-500'
+      },
+      {
+        title: 'Budget Status',
+        value: '76%',
+        description: 'Remaining for Q2',
+        icon: ClipboardIcon,
+        color: 'bg-purple-500'
+      },
+      {
+        title: 'Department Requests',
+        value: 4,
+        description: '3 pending approval',
+        icon: CalendarIcon,
+        color: 'bg-yellow-500'
+      }
     ]
   };
 
@@ -187,42 +220,42 @@ export default function Dashboard({ userRole = 'admin' }: DashboardProps) {
       id: 1,
       type: 'appointment',
       description: 'New appointment scheduled with Dr. Johnson',
-      time: '2025-03-08 14:45:22',
+      time: '2025-03-24 00:10:22',
       status: 'success'
     },
     {
       id: 2,
       type: 'patient',
       description: 'Patient Maria Garcia updated contact information',
-      time: '2025-03-08 12:32:15',
+      time: '2025-03-23 22:32:15',
       status: 'info'
     },
     {
       id: 3,
       type: 'task',
       description: 'Task "Blood pressure check" marked as completed',
-      time: '2025-03-08 10:15:40',
+      time: '2025-03-23 20:15:40',
       status: 'success'
     },
     {
       id: 4,
       type: 'alert',
-      description: 'System maintenance scheduled for Mar 10, 2025',
-      time: '2025-03-08 09:20:18',
+      description: 'System maintenance scheduled for Mar 25, 2025',
+      time: '2025-03-23 19:20:18',
       status: 'warning'
     },
     {
       id: 5,
       type: 'report',
       description: 'Monthly departmental report is ready for review',
-      time: '2025-03-07 16:05:33',
+      time: '2025-03-23 16:05:33',
       status: 'info'
     }
   ];
 
   // Format timestamp to relative time
   const formatRelativeTime = (timestamp: string): string => {
-    const now = new Date('2025-03-08 15:34:10');
+    const now = new Date('2025-03-24 00:26:49');
     const date = new Date(timestamp);
     const diffInSeconds = Math.floor((now.getTime() - date.getTime()) / 1000);
     
@@ -243,7 +276,7 @@ export default function Dashboard({ userRole = 'admin' }: DashboardProps) {
   return (
     <div>
       <div className="mb-6">
-        <h2 className="text-2xl font-semibold text-gray-900">Welcome, Feriel Dh</h2>
+        <h2 className="text-2xl font-semibold text-gray-900">Welcome, {user?.name }</h2>
         <p className="text-sm text-gray-500">{currentDate}</p>
       </div>
       
@@ -296,7 +329,7 @@ export default function Dashboard({ userRole = 'admin' }: DashboardProps) {
         <Card title="Quick Actions">
           <div className="grid grid-cols-2 gap-4">
             <button
-              onClick={() => router.push(`/Dashboard/${userRole}/appointments`)}
+              onClick={() => router.push(`/dashboard/${userRole}/appointments`)}
               className="bg-white hover:bg-gray-50 border border-gray-300 rounded-md shadow-sm px-4 py-4 text-center"
             >
               <CalendarIcon className="mx-auto h-7 w-7 text-primary-500" />
@@ -306,7 +339,7 @@ export default function Dashboard({ userRole = 'admin' }: DashboardProps) {
             </button>
             
             <button
-              onClick={() => router.push(`/Dashboard/${userRole}/messages`)}
+              onClick={() => router.push(`/dashboard/${userRole}/messages`)}
               className="bg-white hover:bg-gray-50 border border-gray-300 rounded-md shadow-sm px-4 py-4 text-center"
             >
               <svg xmlns="http://www.w3.org/2000/svg" className="mx-auto h-7 w-7 text-primary-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -318,7 +351,7 @@ export default function Dashboard({ userRole = 'admin' }: DashboardProps) {
             </button>
             
             <button
-              onClick={() => router.push(`/Dashboard/${userRole}/${userRole === 'patient' ? 'medical-history' : 'reports'}`)}
+              onClick={() => router.push(`/dashboard/${userRole}/${userRole === 'patient' ? 'medical-history' : 'reports'}`)}
               className="bg-white hover:bg-gray-50 border border-gray-300 rounded-md shadow-sm px-4 py-4 text-center"
             >
               <ChartBarIcon className="mx-auto h-7 w-7 text-primary-500" />
@@ -328,7 +361,7 @@ export default function Dashboard({ userRole = 'admin' }: DashboardProps) {
             </button>
             
             <button
-              onClick={() => router.push(`/Dashboard/${userRole}/profile`)}
+              onClick={() => router.push(`/dashboard/${userRole}/profile`)}
               className="bg-white hover:bg-gray-50 border border-gray-300 rounded-md shadow-sm px-4 py-4 text-center"
             >
               <UserIcon className="mx-auto h-7 w-7 text-primary-500" />
@@ -339,6 +372,8 @@ export default function Dashboard({ userRole = 'admin' }: DashboardProps) {
           </div>
         </Card>
       </div>
+      
+   
     </div>
   );
 }

@@ -2,15 +2,11 @@ import { useState } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import { LockClosedIcon, ExclamationCircleIcon } from '@heroicons/react/solid';
+import AuthService, { User } from '../services/auth';
 
 type LoginProps = {
-  login: (userData: {
-    id: string;
-    name: string;
-    email: string;
-    role: string;
-  }) => void;
-  user: any;
+  login: (userData: User) => void;
+  user: User | null;
 };
 
 export default function Login({ login, user }: LoginProps) {
@@ -20,6 +16,8 @@ export default function Login({ login, user }: LoginProps) {
   const [loading, setLoading] = useState<boolean>(false);
   
   const router = useRouter();
+  
+
 
   // Redirect if already logged in
   if (user) {
@@ -32,73 +30,60 @@ export default function Login({ login, user }: LoginProps) {
     setLoading(true);
     setErrorMessage('');
 
-    // Basic validation
-    if (!email || !password) {
-      setErrorMessage('Email and password are required');
+    // Basic client-side validation
+    if (!email) {
+      setErrorMessage('Email is required');
+      setLoading(false);
+      return;
+    }
+
+    if (!password) {
+      setErrorMessage('Password is required');
       setLoading(false);
       return;
     }
 
     try {
-      // In a real app, this would call an API to authenticate
-      // Simulating API call with timeout
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      // Call the authentication service
+      const response = await AuthService.login(email, password);
       
-      // Mock authentication - in a real app this would be a server response
-      if (email === 'admin@healthcare.com' && password === 'admin123') {
-        login({
-          id: '1',
-          name: 'Admin User',
-          email: 'admin@healthcare.com',
-          role: 'admin'
-        });
-        router.push('/dashboard/admin');
-      } else if (email === 'doctor@healthcare.com' && password === 'doctor123') {
-        login({
-          id: '2',
-          name: 'Doctor User',
-          email: 'doctor@healthcare.com',
-          role: 'doctor'
-        });
-        router.push('/dashboard/doctor');
-      } else if (email === 'radiologist@healthcare.com' && password === 'radiologist123') {
-        login({
-          id: '3',
-          name: 'Radiologist User',
-          email: 'radiologist@healthcare.com',
-          role: 'radiologist'
-        });
-        router.push('/dashboard/radiologist');
-      } else if (email === 'depthead@healthcare.com' && password === 'depthead123') {
-        login({
-          id: '4',
-          name: 'Department Head',
-          email: 'depthead@healthcare.com',
-          role: 'department-head'
-        });
-        router.push('/dashboard/department-head');
-      } else if (email === 'patient@healthcare.com' && password === 'patient123') {
-        login({
-          id: '5',
-          name: 'Patient User',
-          email: 'patient@healthcare.com',
-          role: 'patient'
-        });
-        router.push('/dashboard/patient');
-      } else if (email === 'nurse@healthcare.com' && password === 'nurse123') {
-        login({
-          id: '6',
-          name: 'Nurse User',
-          email: 'nurse@healthcare.com',
-          role: 'nurse'
-        });
-        router.push('/dashboard/nurse');
-      } else {
-        setErrorMessage('Invalid email or password');
+      // Transform the response to match our User interface
+      const userData: User = {
+        id: response.user.id.toString(),
+        name: response.user.name,
+        email: response.user.email,
+        role: response.user.role as any
+      };
+      
+      // Update auth context
+      login(userData);
+      
+      // Route based on user role
+      switch(userData.role) {
+        case 'admin':
+          router.push('/dashboard/admin');
+          break;
+        case 'doctor':
+          router.push('/dashboard/doctor');
+          break;
+        case 'patient':
+          router.push('/dashboard/patient');
+          break;
+        case 'nurse':
+          router.push('/dashboard/nurse');
+          break;
+        case 'radiologist':
+          router.push('/dashboard/radiologist');
+          break;
+        case 'department_head':
+          router.push('/dashboard/department-head/doctors');
+          break;
+        default:
+          router.push('/dashboard');
       }
-    } catch (error) {
-      setErrorMessage('An error occurred during login');
-      console.error('Login error:', error);
+    } catch (error: any) {
+      // Display the error message from the auth service
+      setErrorMessage(error.message);
     } finally {
       setLoading(false);
     }
@@ -207,28 +192,9 @@ export default function Login({ login, user }: LoginProps) {
           </div>
         </form>
     
-        <div className="mt-6">
-          <div className="relative">
-            <div className="absolute inset-0 flex items-center">
-              <div className="w-full border-t border-gray-300" />
-            </div>
-            <div className="relative flex justify-center text-sm">
-              <span className="px-2 bg-gray-50 text-gray-500">Test Accounts</span>
-            </div>
-          </div>
-          <div className="mt-6 grid grid-cols-1 gap-3">
-            <div className="text-sm text-gray-500 text-center">
-              <p><strong>Admin:</strong> admin@healthcare.com / admin123</p>
-              <p><strong>Doctor:</strong> doctor@healthcare.com / doctor123</p>
-              <p><strong>Patient:</strong> patient@healthcare.com / patient123</p>
-              <p><strong>Nurse:</strong> nurse@healthcare.com / nurse123</p>
-              <p><strong>Radiologist:</strong> radiologist@healthcare.com / radiologist123</p>
-              <p><strong>Department Head:</strong> depthead@healthcare.com / depthead123</p>
-            </div>
-          </div>
-        </div>
     
-       
+        
+     
       </div>
     </div>
   );

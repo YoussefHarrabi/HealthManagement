@@ -3,34 +3,40 @@ import { useRouter } from 'next/router';
 import Head from 'next/head';
 import '../styles/globals.css';
 import type { AppProps } from 'next/app';
+import AuthService, { User } from '../services/auth';
 
-// Define user role type
-type UserRole = 'admin' | 'doctor' | 'nurse' | 'patient' | 'department-head' | 'radiologist' | null;
-
-// Auth context could be implemented more robustly in a real app
 function MyApp({ Component, pageProps }: AppProps) {
   const [loading, setLoading] = useState<boolean>(true);
-  const [user, setUser] = useState<{
-    id: string;
-    name: string;
-    email: string;
-    role: UserRole;
-  } | null>(null);
+  const [user, setUser] = useState<User | null>(null);
   
   const router = useRouter();
 
   useEffect(() => {
     // Check if user is logged in via localStorage
-    // In a real app, you would use cookies or JWT tokens
-    const storedUser = localStorage.getItem('healthcareUser');
+    const storedUser = AuthService.getCurrentUser();
+    const token = localStorage.getItem('accessToken');
     
-    if (storedUser) {
-      try {
-        setUser(JSON.parse(storedUser));
-      } catch (error) {
-        // Invalid stored data
-        localStorage.removeItem('healthcareUser');
-      }
+    if (storedUser && token) {
+      setUser(storedUser);
+      
+      // Verify token validity
+      AuthService.verifyToken()
+        .then((valid) => {
+          if (!valid) {
+            AuthService.logout();
+            setUser(null);
+            router.push('/login');
+          }
+        })
+        .catch(() => {
+          AuthService.logout();
+          setUser(null);
+          router.push('/login');
+        });
+    } else if (storedUser && !token) {
+      // User data exists but no token - clear everything
+      AuthService.logout();
+      setUser(null);
     }
     
     setLoading(false);
@@ -44,14 +50,14 @@ function MyApp({ Component, pageProps }: AppProps) {
     }
   }, [router.pathname]);
 
-  const login = (userData: typeof user) => {
+  const login = (userData: User) => {
     setUser(userData);
     localStorage.setItem('healthcareUser', JSON.stringify(userData));
   };
 
   const logout = () => {
+    AuthService.logout();
     setUser(null);
-    localStorage.removeItem('healthcareUser');
     router.push('/login');
   };
 
@@ -64,6 +70,15 @@ function MyApp({ Component, pageProps }: AppProps) {
     );
   }
 
+  // Add any additional props your components might need
+  const updatedPageProps = {
+    ...pageProps,
+    user,
+    login,
+    logout,
+  
+  };
+
   return (
     <>
       <Head>
@@ -72,12 +87,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       
-      <Component 
-        {...pageProps} 
-        user={user}
-        login={login}
-        logout={logout}
-      />
+      <Component {...updatedPageProps} />
     </>
   );
 }

@@ -1,43 +1,90 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
-import { UserAddIcon, ExclamationCircleIcon } from '@heroicons/react/solid';
+import { UserAddIcon, ExclamationCircleIcon, CheckCircleIcon, XIcon } from '@heroicons/react/solid';
+import AuthService, { User } from '../services/auth';
 
 type RegisterProps = {
-  login: (userData: {
-    id: string;
-    name: string;
-    email: string;
-    role: string;
-  }) => void;
-  user: any;
+  login: (userData: User) => void;
+  user: User | null;
 };
 
 export default function Register({ login, user }: RegisterProps) {
   const [formData, setFormData] = useState({
-    name: '',
     email: '',
+    first_name: '',
+    last_name: '',
     password: '',
     confirmPassword: '',
     role: 'patient',
   });
   
   const [errors, setErrors] = useState<{
-    name?: string;
+    first_name?: string;
+    last_name?: string;
     email?: string;
     password?: string;
     confirmPassword?: string;
+    role?: string;
     general?: string;
   }>({});
   
   const [loading, setLoading] = useState<boolean>(false);
+  const [roles, setRoles] = useState<{value: string, label: string}[]>([]);
+  const [rolesLoading, setRolesLoading] = useState<boolean>(true);
+  
+  // Success notification state
+  const [showSuccess, setShowSuccess] = useState<boolean>(false);
+  
   const router = useRouter();
+  
+
 
   // Redirect if already logged in
   if (user) {
     router.push('/dashboard');
     return null;
   }
+  
+  // Fetch available roles on component mount
+  useEffect(() => {
+    const fetchRoles = async () => {
+      try {
+        const response = await AuthService.getRoles();
+        
+        // Filter out admin role if it exists
+        const filteredRoles = ((response as { data: { value: string, label: string }[] }).data || []).filter(role => role.value !== 'admin');
+        
+        setRoles(filteredRoles);
+      } catch (error) {
+        console.error('Failed to fetch roles:', error);
+        
+        // Fallback roles without admin
+        setRoles([
+          { value: 'doctor', label: 'Doctor' },
+          { value: 'patient', label: 'Patient' },
+          { value: 'nurse', label: 'Nurse' },
+          { value: 'radiologist', label: 'Radiologist' },
+          { value: 'department_head', label: 'Department Head' }
+        ]);
+      } finally {
+        setRolesLoading(false);
+      }
+    };
+    
+    fetchRoles();
+  }, []);
+
+  // Auto-redirect after successful registration
+  useEffect(() => {
+    if (showSuccess) {
+      const timer = setTimeout(() => {
+        router.push('/login');
+      }, 3000);
+      
+      return () => clearTimeout(timer);
+    }
+  }, [showSuccess, router]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
@@ -58,8 +105,12 @@ export default function Register({ login, user }: RegisterProps) {
   const validateForm = () => {
     const newErrors: typeof errors = {};
     
-    if (!formData.name.trim()) {
-      newErrors.name = 'Name is required';
+    if (!formData.first_name.trim()) {
+      newErrors.first_name = 'First name is required';
+    }
+    
+    if (!formData.last_name.trim()) {
+      newErrors.last_name = 'Last name is required';
     }
     
     if (!formData.email.trim()) {
@@ -70,8 +121,8 @@ export default function Register({ login, user }: RegisterProps) {
     
     if (!formData.password) {
       newErrors.password = 'Password is required';
-    } else if (formData.password.length < 6) {
-      newErrors.password = 'Password must be at least 6 characters';
+    } else if (formData.password.length < 5) {
+      newErrors.password = 'Password must be at least 5 characters';
     }
     
     if (formData.password !== formData.confirmPassword) {
@@ -92,24 +143,23 @@ export default function Register({ login, user }: RegisterProps) {
     setLoading(true);
     
     try {
-      // In a real app, this would call an API to register
-      // Simulating API call with timeout
-      await new Promise(resolve => setTimeout(resolve, 1500));
+      // Extract data for registration (excluding confirmPassword)
+      const { confirmPassword, ...registrationData } = formData;
       
-      // Mock registration success
-      login({
-        id: `user-${Date.now()}`,
-        name: formData.name,
-        email: formData.email,
-        role: formData.role
-      });
+      // Call the API to register the user
+      const response = await AuthService.register(registrationData);
       
-      router.push('/dashboard');
-    } catch (error) {
-      setErrors({
-        general: 'Registration failed. Please try again later.'
-      });
+      // Show success message
+      setShowSuccess(true);
+      
+      // Form will be cleared and user will be redirected automatically via useEffect
+    } catch (error: any) {
       console.error('Registration error:', error);
+      
+      // Display error message
+      setErrors({
+        general: error.message || 'Registration failed. Please try again later.'
+      });
     } finally {
       setLoading(false);
     }
@@ -131,6 +181,34 @@ export default function Register({ login, user }: RegisterProps) {
         </p>
       </div>
 
+      {/* Success toast notification */}
+      {showSuccess && (
+        <div className="fixed top-5 left-1/2 transform -translate-x-1/2 z-50">
+          <div className="bg-green-50 p-4 rounded-md shadow-lg border border-green-100 flex items-start max-w-md">
+            <div className="flex-shrink-0">
+              <CheckCircleIcon className="h-5 w-5 text-green-400" aria-hidden="true" />
+            </div>
+            <div className="ml-3 flex-1">
+              <p className="text-sm font-medium text-green-800">
+                Registration successful!
+              </p>
+              <p className="mt-1 text-sm text-green-700">
+                Your account has been created. You will be redirected to login...
+              </p>
+            </div>
+            <div className="ml-4 flex-shrink-0 flex">
+              <button
+                className="bg-green-50 rounded-md inline-flex text-green-400 hover:text-green-500 focus:outline-none"
+                onClick={() => setShowSuccess(false)}
+              >
+                <span className="sr-only">Close</span>
+                <XIcon className="h-5 w-5" aria-hidden="true" />
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
         <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
           {errors.general && (
@@ -150,23 +228,45 @@ export default function Register({ login, user }: RegisterProps) {
 
           <form className="space-y-6" onSubmit={handleSubmit}>
             <div>
-              <label htmlFor="name" className="block text-sm font-medium text-gray-700">
-                Full Name
+              <label htmlFor="first_name" className="block text-sm font-medium text-gray-700">
+                First Name
               </label>
               <div className="mt-1">
                 <input
-                  id="name"
-                  name="name"
+                  id="first_name"
+                  name="first_name"
                   type="text"
-                  autoComplete="name"
-                  value={formData.name}
+                  autoComplete="given-name"
+                  value={formData.first_name}
                   onChange={handleInputChange}
                   className={`appearance-none block w-full px-3 py-2 border ${
-                    errors.name ? 'border-red-300' : 'border-gray-300'
+                    errors.first_name ? 'border-red-300' : 'border-gray-300'
                   } rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm`}
                 />
-                {errors.name && (
-                  <p className="mt-2 text-sm text-red-600">{errors.name}</p>
+                {errors.first_name && (
+                  <p className="mt-2 text-sm text-red-600">{errors.first_name}</p>
+                )}
+              </div>
+            </div>
+
+            <div>
+              <label htmlFor="last_name" className="block text-sm font-medium text-gray-700">
+                Last Name
+              </label>
+              <div className="mt-1">
+                <input
+                  id="last_name"
+                  name="last_name"
+                  type="text"
+                  autoComplete="family-name"
+                  value={formData.last_name}
+                  onChange={handleInputChange}
+                  className={`appearance-none block w-full px-3 py-2 border ${
+                    errors.last_name ? 'border-red-300' : 'border-gray-300'
+                  } rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm`}
+                />
+                {errors.last_name && (
+                  <p className="mt-2 text-sm text-red-600">{errors.last_name}</p>
                 )}
               </div>
             </div>
@@ -247,24 +347,31 @@ export default function Register({ login, user }: RegisterProps) {
                   name="role"
                   value={formData.role}
                   onChange={handleInputChange}
-                  className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                  disabled={rolesLoading}
+                  className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm disabled:bg-gray-100"
                 >
-                  <option value="patient">Patient</option>
-                  <option value="doctor">Doctor (Requires Approval)</option>
-                  <option value="nurse">Nurse (Requires Approval)</option>
+                  {rolesLoading ? (
+                    <option>Loading roles...</option>
+                  ) : (
+                    roles.map(role => (
+                      <option key={role.value} value={role.value}>
+                        {role.label}
+                      </option>
+                    ))
+                  )}
                 </select>
               </div>
-              <p className="mt-2 text-xs text-gray-500">
+              {/* <p className="mt-2 text-xs text-gray-500">
                 Note: Healthcare provider accounts require verification and approval
-              </p>
+              </p> */}
             </div>
 
             <div>
               <button
                 type="submit"
-                disabled={loading}
+                disabled={loading || rolesLoading || showSuccess}
                 className={`w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 ${
-                  loading ? 'opacity-70 cursor-not-allowed' : ''
+                  loading || rolesLoading || showSuccess ? 'opacity-70 cursor-not-allowed' : ''
                 }`}
               >
                 <UserAddIcon className="mr-2 h-5 w-5" />
@@ -301,7 +408,7 @@ export default function Register({ login, user }: RegisterProps) {
           </div>
         </div>
         
-        
+     
       </div>
     </div>
   );

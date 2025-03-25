@@ -13,6 +13,7 @@ import {
   UserCircleIcon,
   PhotographIcon,
 } from '@heroicons/react/outline';
+import { User } from '../../services/auth';
 
 interface NavigationItem {
   name: string;
@@ -22,14 +23,16 @@ interface NavigationItem {
 }
 
 interface SidebarProps {
-  userRole?: string;
+  user: User | null;
+  logout: () => void;
 }
 
-export default function Sidebar({ userRole = 'admin' }: SidebarProps) {
+export default function Sidebar({ user, logout }: SidebarProps) {
   const router = useRouter();
   const [collapsed, setCollapsed] = useState(false);
-  const currentDate = new Date('2025-03-08 23:50:44');
-  const currentUser = 'Feriel Mariem';
+  const currentDate = new Date('2025-03-24 00:26:49');
+  const currentUser = user?.name ;
+  const userRole = user?.role || 'admin';
   
   // Base navigation items available to all users
   const baseNavigation: NavigationItem[] = [
@@ -68,6 +71,11 @@ export default function Sidebar({ userRole = 'admin' }: SidebarProps) {
       { name: 'Image Library', href: '/dashboard/radiologist/image-library', icon: PhotographIcon },
       { name: 'Reports', href: '/dashboard/radiologist/reports', icon: DocumentReportIcon },
     ],
+    department_head: [
+      { name: 'Department Overview', href: '/dashboard/department-head/overview', icon: ChartBarIcon },
+      { name: 'Staff Management', href: '/dashboard/department-head/staff', icon: UsersIcon },
+      { name: 'Department Reports', href: '/dashboard/department-head/reports', icon: DocumentReportIcon },
+    ]
   };
   
   // Get navigation items based on user role
@@ -75,6 +83,11 @@ export default function Sidebar({ userRole = 'admin' }: SidebarProps) {
     ...baseNavigation,
     ...(roleBasedNavigation[userRole] || [])
   ];
+
+  const handleLogout = () => {
+    logout();
+    router.push('/login');
+  };
 
   return (
     <div className={`flex flex-col h-full border-r border-gray-200 ${collapsed ? 'w-16' : 'w-64'} bg-white`}>
@@ -135,12 +148,13 @@ export default function Sidebar({ userRole = 'admin' }: SidebarProps) {
       )}
       
       <div className="p-4 border-t border-gray-200">
-        <Link href="/auth/login" legacyBehavior>
-          <a className="group flex items-center px-2 py-2 text-sm font-medium text-gray-600 rounded-md hover:bg-gray-50 hover:text-gray-900">
-            <LogoutIcon className="mr-3 h-6 w-6 text-gray-400 group-hover:text-gray-500" />
-            {!collapsed && <span>Logout</span>}
-          </a>
-        </Link>
+        <button 
+          onClick={handleLogout}
+          className="group flex items-center px-2 py-2 text-sm font-medium text-gray-600 rounded-md hover:bg-gray-50 hover:text-gray-900 w-full"
+        >
+          <LogoutIcon className="mr-3 h-6 w-6 text-gray-400 group-hover:text-gray-500" />
+          {!collapsed && <span>Logout</span>}
+        </button>
       </div>
     </div>
   );

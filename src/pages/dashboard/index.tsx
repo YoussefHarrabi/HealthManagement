@@ -32,8 +32,8 @@ export default function Dashboard({ user, logout }: DashboardProps) {
       // Redirect to role-specific dashboard
       if (user.role === 'admin') {
         router.push('/dashboard/admin');
-      } else if (user.role === 'department-head') {
-        router.push('/dashboard/department-head');
+      } else if (user.role === 'department_head') {
+        router.push('/dashboard/department-head/doctors');
       } else if (user.role === 'radiologist') {
         router.push('/dashboard/radiologist');
       } else if (user.role === 'doctor') {

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -13,27 +13,28 @@ import {
   ClipboardListIcon
 } from '@heroicons/react/outline';
 import UserManagement from '../../../components/admin/UserManagement';
+import { User } from '../../../services/auth';
 
 type UserManagementPageProps = {
-  user: {
-    id: string;
-    name: string;
-    email: string;
-    role: string;
-  } | null;
+  user: User | null;
   logout: () => void;
 };
 
 export default function UserManagementPage({ user, logout }: UserManagementPageProps) {
   const router = useRouter();
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  
 
 
   // Check if user is admin
-  if (!user || user.role !== 'admin') {
-    if (typeof window !== 'undefined') {
+  useEffect(() => {
+    if (!user || user.role !== 'admin') {
       router.push('/login');
     }
+  }, [user, router]);
+
+  // If not admin, return null (this avoids flash of forbidden content)
+  if (!user || user.role !== 'admin') {
     return null;
   }
 
@@ -196,8 +197,7 @@ export default function UserManagementPage({ user, logout }: UserManagementPageP
             <div className="max-w-7xl mx-auto">
               <div className="pb-5 border-b border-gray-200 mb-5 flex justify-between items-center">
                 <h1 className="text-2xl font-semibold text-gray-900">User Management</h1>
-                <div className="text-sm text-gray-500">
-                </div>
+              
               </div>
               
               <UserManagement />
